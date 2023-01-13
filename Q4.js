@@ -13,15 +13,15 @@ function countUnpaired(input) {
     arr.splice(indexOne, 1);
     arr.splice(indexTwo, 1);
   }
-  (function compareNumbers() {
-    for (let i = 0; i < input.length; i++) {
-      for (let k = 0; k < input.length; k++) {
-        if (input[i] === input[k] && i !== k) {
+  function compareNumbers(n) {
+    for (let i = n; i < input.length; i++) {
+      for (let k = i + 1; k < input.length; k++) {
+        if (input[i] === input[k]) {
           console.log(`Deleted ${input[i]} and ${input[k]}`);
           removePairs(input, input[i], input[k]);
           console.log(` Array is now ${input}`);
 
-          compareNumbers();
+          compareNumbers(i);
         } else {
           console.log(
             `compared ${input[i]} with ${input[k]}. Array is still ${input}`
@@ -29,13 +29,13 @@ function countUnpaired(input) {
         }
       }
     }
-  })();
-  //   compareNumbers();
+  }
+  compareNumbers(0);
 
   return input;
 }
 
-console.log(countUnpaired([1, 2, 3, 4, 4, 5]));
+console.log(countUnpaired([1, 1, 2, 3, 5, 5, 5, 6, 7, 8, 8]));
 
 /*
  PLAN B:

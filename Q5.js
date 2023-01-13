@@ -1,5 +1,4 @@
 function countUnpaired(input) {
-  let matches = [];
   function removePairs(arr, a, b) {
     let indexOne = arr.indexOf(a);
     let indexTwo = arr.indexOf(b);
@@ -7,10 +6,18 @@ function countUnpaired(input) {
     arr.splice(indexTwo, 1);
   }
   (function compareNumbers() {
-    for (let i = 0; i < input.length; i++) {
+    let i = 0;
+    while (i < input.length) {
       for (let k = 0; k < input.length; k++) {
         if (input[i] === input[k] && i !== k) {
+          console.log(`Deleted ${input[i]} and ${input[k]}`);
           removePairs(input, input[i], input[k]);
+          console.log(` Array is now ${input}`);
+        } else {
+          console.log(
+            `compared ${input[i]} with ${input[k]}. Array is still ${input}`
+          );
+          ++i;
         }
       }
     }
@@ -19,15 +26,4 @@ function countUnpaired(input) {
   return input;
 }
 
-console.log(countUnpaired([7, 1, 1, 2, 3, 5, 5, 5, 5, 5, 1, 2, 7]));
-
-/*
-1. Loop through the outer array
-2. For every item, loop through the inner array
--if no match is found, continue to loop
--if match is found:
-    -delete both items
-    -carry on looping from the place you left of (not the place after it)
-
-
-*/
+console.log(countUnpaired([1, 2, 3, 4, 4, 5, 6, 10, 12, 15, 100]));

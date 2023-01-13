@@ -1,3 +1,4 @@
+let start = performance.now();
 function countUnpaired(input) {
   let matches = [];
   function removePairs(arr, a, b) {
@@ -19,7 +20,16 @@ function countUnpaired(input) {
   return input;
 }
 
-console.log(countUnpaired([7, 1, 1, 2, 3, 5, 5, 5, 5, 5, 1, 2, 7]));
+console.log(
+  countUnpaired([
+    1, 2, 3, 4, 4, 1, 1, 1, 9, 1259, 1259, 0, 0, 0, 0, 0, 0, 0, 348, 9, 9, 8,
+    11, 12, 57, 89, 0, 0, 0, 0, 348, 9, 9, 8, 11, 12, 57, 89, 1259, 0, 0, 0, 0,
+    0, 0, 0, 348, 9, 9,
+  ])
+);
+let finish = performance.now();
+console.log(`version 5 took ${finish - start} miliseconds`);
+
 // console.log([input[i], input[k]]);
 /*
 PLAN A:
