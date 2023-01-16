@@ -1,17 +1,14 @@
 function furthestRoom(input) {
   let adjacencyList = {};
-
   //This assumes input doesn't contain duplicates:
-  function addRooms(from, to) {
-    adjacencyList[from]
-      ? adjacencyList[from].push(to)
-      : (adjacencyList[from] = [to]);
-    adjacencyList[to]
-      ? adjacencyList[to].push(from)
-      : (adjacencyList[to] = [from]);
+  function addRooms(arr, from, to) {
+    arr[from] ? arr[from].push(to) : (arr[from] = [to]);
+    arr[to] ? arr[to].push(from) : (arr[to] = [from]);
   }
+  input.forEach((item) => addRooms(adjacencyList, ...item));
 
-  input.forEach((item) => addRooms(...item));
+  let queue = [];
+
   console.log(adjacencyList);
   return 0;
 }
@@ -29,7 +26,7 @@ console.log(
 
 /*
 PRELIMINARY STUFF:
-I. Represent the graph as an adjecency table.
+I. Represent the graph as an adjecency table. ✅
 II. Create queue:
     a) From
     b) To
