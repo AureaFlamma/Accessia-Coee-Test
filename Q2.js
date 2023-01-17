@@ -6,10 +6,65 @@ function furthestRoom(input) {
     arr[to] ? arr[to].push(from) : (arr[to] = [from]);
   }
   input.forEach((item) => addRooms(adjacencyList, ...item));
+  console.log(adjacencyList);
 
   let queue = [];
+  let paths = {};
+  let source = { to: 0, from: 0, pathLength: 0, pathFound: true };
+  queue.push(source);
+  console.log(
+    "Add source node to the queue. Current node is :",
+    queue[0].to,
+    "queue :",
+    queue,
+    "paths: ",
+    paths
+  );
+  while (queue.length !== 0) {
+    (function findPaths(list) {
+      paths[queue[0].to] = {
+        from: queue[0].to,
+        pathLength: queue[0].pathLength,
+        pathFound: true,
+      };
+      console.log(
+        `Step 1: Push current node (${queue[0].to}) to Solution Table. Queue :`,
+        queue,
+        "paths: ",
+        paths
+      );
+      // queue.push(...adjecencyList[queue[0].to])
+      adjacencyList[queue[0].to].forEach((item) => {
+        if (!paths[item]) {
+          queue.push({
+            to: item,
+            from: queue[0].from,
+            pathLength: queue[0].pathLength + 1,
+            pathFound: true,
+          });
+        }
+      });
+      console.log(
+        `Step 2: Add nodes adjecent to current node (${
+          queue[0].to
+        }) to Queue IF NOT ALREADY IN SOLUTIONS TABLE. Adjecent nodes: ${
+          adjacencyList[queue[0].to]
+        }.  Queue :`,
+        queue,
+        "paths: ",
+        paths
+      );
+      queue.shift();
+      console.log(
+        `Step 3: Delete current node from the queue. The next node in the queue is the current node. Queue :`,
+        queue,
+        "paths: ",
+        paths
+      );
+    })();
+  }
 
-  console.log(adjacencyList);
+  //   console.log(adjacencyList);
   return 0;
 }
 
