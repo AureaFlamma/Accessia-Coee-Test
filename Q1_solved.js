@@ -7,11 +7,16 @@ let start = performance.now();
 function countUnpaired(input) {
   let counter = 0;
   let frequencyTable = {};
-  input.map((item) => {
+  //We enter each item into our frequency table together with the number of times we've encountered it:
+  input.forEach((item) => {
     frequencyTable[item] ? frequencyTable[item]++ : (frequencyTable[item] = 1);
   });
+
+  //Let's pull out the frequencies...
   let frequencyList = Object.values(frequencyTable);
-  for (frequency of frequencyList) {
+
+  //...and count the number of odd ones. That's the number of items without a pair.
+  for (const frequency of frequencyList) {
     if (frequency % 2 === 1) {
       counter++;
     }
