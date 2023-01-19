@@ -130,3 +130,11 @@ print(furthestRoom([(0,1),(1,2),(1,3),(2,4),(4,5),(3,4)]))
 A low powered microcontroller with restricted processing and only a few megabytes of storage is used to implement a electronic door lock. When a user swipes their access card we receive a 16 byte card ID in the form of a UUID, and we will allow the user to enter if their ID is on a list of known card IDs. This list of card IDs is generated in the cloud, but the lock must be able to operate even in cases where connectivity to the cloud is temporarily unavailable. It is not neccessary to retrieve any further data, we just want to check if the ID is on the list.
 
 How would you suggest we store these on the microcontroller so that we can quickly check if the user is permitted? The list of valid access cards is calculated in the cloud, and changes infrequently compared to the frequency of checks. Explain briefly the pros and cons of various approaches, and suggest what you would consider the best option. It is not necessary to write any code, but if that is the best way to express your idea, go ahead!
+
+Assumptions:
+adding/deleting card ID's is infrequent and therefore is of secondary concern. The main concern is time and space complexity of lookup.
+
+First, a rundown of storage options I wouldn't consider:
+
+1. Arrays.
+   Arrays have lookup time of O(1) if we're looking up by index. Assuming the ID's index in the valid ID list will not be encoded on user's card, we would have to conduct lookup by value which would take O(n) time, with n being the number of ID's on valid ID's list.

@@ -24,10 +24,7 @@ function furthestRoom(input) {
   while (queue.length !== 0) {
     (function findPaths(list) {
       currentRoom = queue[0];
-      paths[currentRoom.to] = {
-        from: currentRoom.to,
-        pathLength: currentRoom.pathLength,
-      };
+      paths[currentRoom.to] = currentRoom.pathLength;
       console.log(
         `Step 1: Push current node (${currentRoom.to}) to Solution Table. Queue :`,
         queue,
@@ -36,7 +33,7 @@ function furthestRoom(input) {
       );
       // queue.push(...adjecencyList[currentRoom.to])
       adjacencyList[currentRoom.to].forEach((item) => {
-        if (!paths[item]) {
+        if (!paths[item] && paths[item] !== 0) {
           queue.push({
             to: item,
             from: currentRoom.from,
@@ -64,24 +61,22 @@ function furthestRoom(input) {
     })();
   }
 
-  (function identifyFurthest() {
-    const pathsKeys = Object.keys(paths);
-    console.log(pathsKeys);
-    for (const key in pathsKeys) {
-      console.log(paths[key].pathLength);
-    }
-  })();
+  const pathsValues = Object.values(paths);
+  const solution = Math.max(...pathsValues);
+
   //   console.log(adjacencyList);
-  return 0;
+  return solution;
 }
 
 console.log(
   furthestRoom([
     [0, 1],
     [1, 2],
+    [1, 6],
     [1, 3],
     [2, 4],
     [4, 5],
+    [5, 6],
     [3, 4],
   ])
 );
